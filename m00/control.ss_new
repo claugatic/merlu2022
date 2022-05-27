@@ -4,7 +4,7 @@
 #_user_support_available_at:NMFS.Stock.Synthesis@noaa.gov
 #_user_info_available_at:https://vlab.ncep.noaa.gov/group/stock-synthesis
 #C this is an example control file setup																	
-#_data_and_control_files: data.dat // control.dat
+#_data_and_control_files: data.dat // control_modified.ss
 0  # 0 means do not read wtatage.ss; 1 means read and use wtatage.ss and also read and use growth parameters
 1  #_N_Growth_Patterns
 1 #_N_platoons_Within_GrowthPattern 
@@ -54,14 +54,14 @@
 #
 #_growth_parms
 #_ LO HI INIT PRIOR PR_SD PR_type PHASE env_var&link dev_link dev_minyr dev_maxyr dev_PH Block Block_Fxn
- 0.32 0.37 0.33 0.3 0.2 3 -2 0 0 0 0 0 0 0 # NatM_p_1_Fem_GP_1
+ 0.32 0.37 0.4 0.3 0.2 3 -2 0 0 0 0 0 0 0 # NatM_p_1_Fem_GP_1
  20 25 30 30 5 0 -2 0 0 0 0 0 0 0 # L_at_Amin_Fem_GP_1
  60 75 65 65 5 0 -2 0 0 0 0 0 0 0 # L_at_Amax_Fem_GP_1
  0.1 0.2 0.15 0.25 0.8 0 -3 0 0 0 0 0 0 0 # VonBert_K_Fem_GP_1
  0.05 0.2 0.063 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_young_Fem_GP_1
  0.05 0.2 0.085 0.1 0.8 0 -3 0 0 0 0 0 0 0 # CV_old_Fem_GP_1
- 0.9 1.1 1.00275 0.5 0.5 0 3 0 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
- -0.8 0.1 0.0999994 0.5 0.5 0 3 0 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
+ 0.9 1.1 1.00027 0.5 0.5 0 3 0 0 0 0 0 0 0 # Wtlen_1_Fem_GP_1
+ -0.8 0.1 0.0999997 0.5 0.5 0 3 0 0 0 0 0 0 0 # Wtlen_2_Fem_GP_1
  33 40 35 37 0.8 0 -3 0 0 0 0 0 0 0 # Mat50%_Fem_GP_1
  -47 -45 -46.9 -46.9 0.8 0 -3 0 0 0 0 0 0 0 # Mat_slope_Fem_GP_1
  -3 3 1 1 0.8 0 -3 0 0 0 0 0 0 0 # Eggs/kg_inter_Fem_GP_1
@@ -83,9 +83,9 @@
 0  # 0/1 to use steepness in initial equ recruitment calculation
 0  #  future feature:  0/1 to make realized sigmaR a function of SR curvature
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn #  parm_name
-             3            31       12.8345          10.3            10             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
-           0.2             3       0.56311           1.5          0.05             1          4          0          0          0          0          0          0          0 # SR_RkrPower_steep
-          -0.5             5        1.3562             1           0.5             6          4          0          0          0          0          0          0          0 # SR_RkrPower_gamma
+             3            31       13.2126          10.3            10             0          1          0          0          0          0          0          0          0 # SR_LN(R0)
+           0.2             3           0.9           1.5          0.05             1         -4          0          0          0          0          0          0          0 # SR_RkrPower_steep
+          -0.5             5       1.76124             1           0.5             6          4          0          0          0          0          0          0          0 # SR_RkrPower_gamma
              0             2           0.6           0.8           0.8             0         -4          0          0          0          0          0          0          0 # SR_sigmaR
             -5             5             0             0             1             0         -4          0          0          0          0          0          0          0 # SR_regime
              0             0             0             0             0             0        -99          0          0          0          0          0          0          0 # SR_autocorr
@@ -115,7 +115,7 @@
 #
 # all recruitment deviations
 #  1988R 1989R 1990R 1991R 1992R 1993R 1994R 1995R 1996R 1997R 1998R 1999R 2000R 2001R 2002R 2003R 2004R 2005R 2006R 2007R 2008R 2009R 2010R 2011R 2012R 2013R 2014R 2015R 2016R 2017R 2018R 2019R 2020R 2021F 2022F 2023F 2024F 2025F 2026F 2027F 2028F 2029F 2030F 2031F
-#  0.0320751 0.422009 0.91462 1.15975 1.12639 1.09919 0.994693 0.494986 0.437985 0.0968904 -0.291756 -0.691452 -1.16274 -0.890059 -0.67976 -0.523261 0.0267928 -0.00444389 -0.0342727 -0.478348 -0.606556 -0.402654 -0.375453 -0.190607 0.0381325 0.157015 0.420033 0.253981 0.287286 -0.185463 -0.653286 -0.513986 -0.277738 0 0 0 0 0 0 0 0 0 0 0
+#  0.223034 0.629496 1.13444 1.39363 1.35611 1.31628 1.18639 0.663103 0.574511 0.204789 -0.217903 -0.656207 -1.14826 -0.895881 -0.656779 -0.631673 -0.337029 -0.483325 -0.521027 -0.893541 -0.927778 -0.639697 -0.54258 -0.36027 -0.157184 -0.0432743 0.223804 0.1979 0.37423 0.106413 -0.297895 -0.204916 0.0311054 0 0 0 0 0 0 0 0 0 0 0
 # implementation error by year in forecast:  0 0 0 0 0 0 0 0 0 0
 #
 #Fishing Mortality info 
@@ -134,8 +134,8 @@
 # F rates by fleet
 # Yr:  1992 1993 1994 1995 1996 1997 1998 1999 2000 2001 2002 2003 2004 2005 2006 2007 2008 2009 2010 2011 2012 2013 2014 2015 2016 2017 2018 2019 2020 2021 2022 2023 2024 2025 2026 2027 2028 2029 2030 2031
 # seas:  1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1 1
-# Industrial_declarado 0.141658 0.134986 0.123998 0.110905 0.107432 0.108112 0.107696 0.132605 0.174351 0.248316 0.36978 0.516054 0.568114 0.595247 0.611319 0.450759 0.367673 0.361837 0.424657 0.449815 0.434541 0.397404 0.158023 0.13395 0.124752 0.101922 0.0855334 0.0953322 0.106598 0.110281 0.530542 0.434158 0.500864 0.633286 0.768354 0.861589 0.952062 1.04746 1.14356 1.23249
-# Artesanal_declarado 0.0284997 0.0472652 0.0482738 0.0499902 0.0696553 0.0424128 0.0252357 0.0631466 0.0747251 0.113339 0.13925 0.167498 0.199077 0.0793047 0.0793297 0.10399 0.187242 0.198165 0.253231 0.357476 0.353992 0.325984 0.160185 0.12536 0.0952079 0.0792405 0.0677329 0.0579861 0.0566641 0.0700298 0 0 0 0 0 0 0 0 0 0
+# Industrial_declarado 0.162573 0.144917 0.123928 0.104889 0.0981183 0.0974231 0.0970977 0.120267 0.160742 0.23257 0.35047 0.457009 0.497516 0.513972 0.518663 0.375607 0.300998 0.290227 0.327198 0.320829 0.278407 0.224473 0.0824262 0.0677701 0.0618152 0.0500379 0.042047 0.0470452 0.0523714 0.0593027 0.916401 0.915864 0.913804 0.907196 0.894803 0.891525 0.897553 0.903319 0.906981 0.90868
+# Artesanal_declarado 0.0330916 0.0511624 0.0472161 0.0452453 0.0604852 0.0363107 0.0217298 0.055146 0.066337 0.102347 0.127239 0.147197 0.172173 0.0671648 0.0658085 0.0846339 0.149819 0.15566 0.191431 0.249828 0.221253 0.179276 0.0812291 0.0618844 0.0460714 0.0380014 0.0325542 0.0280708 0.0274093 0.0349153 0 0 0 0 0 0 0 0 0 0
 #
 #_Q_setup for fleets with cpue or survey data
 #_1:  link type: (1=simple q, 1 parm; 2=mirror simple q, 1 mirrored parm; 3=q and power, 2 parm)
@@ -149,8 +149,8 @@
 #
 #_Q_parms(if_any);Qunits_are_ln(q)
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-           -15            15     0.0601255             0             1             0          3          0          0          0          0          0          0          0  #  LnQ_base_Crucero(3)
-             0           0.5       0.21463             0             1             0          3          0          0          0          0          0          0          0  #  Q_extraSD_Crucero(3)
+           -15            15     -0.355404             0             1             0          3          0          0          0          0          0          0          0  #  LnQ_base_Crucero(3)
+             0           0.5       0.26086             0             1             0          3          0          0          0          0          0          0          0  #  Q_extraSD_Crucero(3)
 #_no timevary Q parameters
 #
 #_size_selex_patterns
@@ -198,20 +198,20 @@
  12 0 0 0 # 3 Crucero
 #
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type      PHASE    env-var    use_dev   dev_mnyr   dev_mxyr     dev_PH      Block    Blk_Fxn  #  parm_name
-          0.01             6       4.02214           0.2            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P1_Industrial_declarado(1)
-          0.01             6       1.60429           1.8            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P2_Industrial_declarado(1)
-          0.01             6       4.80086           0.2            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P1_Artesanal_declarado(2)
-          0.01             6       1.65991           1.8            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P2_Artesanal_declarado(2)
-          0.01             6       1.99938           0.2            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P1_Crucero(3)
-          0.01             6     0.0115362           1.8            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P2_Crucero(3)
+          0.01             6       4.26352           0.2            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P1_Industrial_declarado(1)
+          0.01             6       1.67573           1.8            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P2_Industrial_declarado(1)
+          0.01             6       4.86581           0.2            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P1_Artesanal_declarado(2)
+          0.01             6       1.69928           1.8            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P2_Artesanal_declarado(2)
+          0.01             6       2.00026           0.2            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P1_Crucero(3)
+          0.01             6     0.0183609           1.8            99             0          2          0          0          0          0        0.5          2          0  #  AgeSel_P2_Crucero(3)
 # timevary selex parameters 
 #_          LO            HI          INIT         PRIOR         PR_SD       PR_type    PHASE  #  parm_name
-      -6.03972      0.357211     -0.232074             0      0.178605             6      4  # AgeSel_P1_Industrial_declarado(1)_BLK2mult_2003
-      -5.10689       1.29004     -0.163508             0       0.64502             6      4  # AgeSel_P2_Industrial_declarado(1)_BLK2mult_2003
-      -6.01296      0.383968     -0.280065             0      0.191984             6      4  # AgeSel_P1_Artesanal_declarado(2)_BLK2mult_2003
-      -5.18383        1.2131     -0.267508             0      0.606549             6      4  # AgeSel_P2_Artesanal_declarado(2)_BLK2mult_2003
-      -6.03972      0.357211    -0.0149782             0      0.178605             6      4  # AgeSel_P1_Crucero(3)_BLK2mult_2003
-      -5.10689       1.29004    -0.0032339             0       0.64502             6      4  # AgeSel_P2_Crucero(3)_BLK2mult_2003
+      -6.03972      0.357211     -0.280552             0      0.178605             6      4  # AgeSel_P1_Industrial_declarado(1)_BLK2mult_2003
+      -5.10689       1.29004     -0.242925             0       0.64502             6      4  # AgeSel_P2_Industrial_declarado(1)_BLK2mult_2003
+      -6.01296      0.383968     -0.297229             0      0.191984             6      4  # AgeSel_P1_Artesanal_declarado(2)_BLK2mult_2003
+      -5.18383        1.2131     -0.337263             0      0.606549             6      4  # AgeSel_P2_Artesanal_declarado(2)_BLK2mult_2003
+      -6.03972      0.357211   -0.00833943             0      0.178605             6      4  # AgeSel_P1_Crucero(3)_BLK2mult_2003
+      -5.10689       1.29004   -0.00112834             0       0.64502             6      4  # AgeSel_P2_Crucero(3)_BLK2mult_2003
 # info on dev vectors created for selex parms are reported with other devs after tag parameter section 
 #
 0   #  use 2D_AR1 selectivity(0/1):  experimental feature

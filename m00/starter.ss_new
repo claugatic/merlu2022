@@ -3,9 +3,12 @@
 #Foreign copyrights may apply. See copyright.txt for more information.
 #_user_support_available_at:NMFS.Stock.Synthesis@noaa.gov
 #_user_info_available_at:https://vlab.ncep.noaa.gov/group/stock-synthesis
-#C starter comment here
+#C starter file written by R function SS_writestarter
+#C rerun model to get more complete formatting in starter.ss_new
+#C should work with SS version: 3.30
+#C file write time: 2022-01-12 14:08:48
 data.dat
-control.dat
+control_modified.ss
 0 # 0=use init values in control file; 1=use ss.par
 1 # run display detail (0,1,2)
 1 # detailed output (0=minimal for data-limited, 1=high, 2=brief) 
