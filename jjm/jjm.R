@@ -43,11 +43,19 @@ age_fits %>%
 
 recruits <- get_recruits(m1)
 
+
 recruits %>% 
   ggplot() + 
   geom_ribbon(aes(year, ymin = lower_recruits, ymax = upper_recruits, fill = stock),alpha = 0.5) + 
   geom_line(aes(year, recruits, color = stock)) + 
   facet_wrap(~model)
+
+fishing_mortality <- get_fishing_mortality(m1)
+
+fishing_mortality %>% 
+  ggplot(aes(year, mortality, color = age, group = age)) + 
+  geom_line() + 
+  facet_grid(model~stock, scales = "free_y") 
 
 
 
@@ -56,6 +64,16 @@ recruits %>%
 
 m <- './jjms'
 # Directory  
+fishing_mortality <- get_fishing_mortality(m1)
+
+fishing_mortality %>% 
+  ggplot(aes(year, mortality, color = age, group = age)) + 
+  geom_line() + 
+  facet_grid(model~stock, scales = "free_y") 
+
+
+#---------------ADNUTS------------------------- 
+m <- 'jjms'
 d <- 'jjm'
 setwd(d)
 system(paste(m, '-nox -iprint 200 -hbf 1'))
@@ -67,10 +85,55 @@ fit.mle <- sample_nuts(model=m, path=d, iter=iter, warmup=iter/4,
 saveRDS(fit.mle,"jjm/fit.mle.RDS")
 #fit.mle <- readRDS(here("fit.mle.RDS"))
 adnuts::pairs_admb(fit.mle, pars=1:6, order='slow')
+launch_shinyadmb(fit.mle)
+# now do mceval
+setwd(d)
+system(paste(m, '-mceval'))
+setwd('..')
+# Read in some mcmc results
+library(tidyverse)
+library(ggthemes)
+mcldf <- read_csv("mclike.csv")
+mcldf
+mnssb <- mcldf %>% filter(stock==1,type!="ind_len",type!="priors") %>% group_by(type) %>% summarise(mean_SSB=mean(SSB)) 
+mnssb
+bin <- seq(5000,12000,by=500); bin
+mcldf %>% filter(stock==1,type!="ind_len",type!="priors") %>% mutate(bin=cut(SSB, breaks=bin, labels=FALSE)) %>% group_by(type) %>% mutate(NLL=value-mean(value)) %>%
+ungroup() %>% group_by(type,bin) %>% summarise(NLL=mean(NLL))%>%
+ggplot(aes(x=bin,y=NLL,color=type)) + theme_few()+ geom_line() #+ facet_wrap(type~.) 
+
+mcldf %>% filter(stock==1,type!="ind_len",type!="priors") %>% group_by(type) %>% mutate(NLL=value-mean(value)) %>%
+ggplot(aes(x=SSB,y=NLL,color=type)) + theme_few()+ geom_point(alpha=.2,size=.2) + facet_wrap(type~.,scales="free") + stat_smooth()
+
+mcldf %>% filter(stock==1,type!="ind_len",type!="priors") %>% group_by(type) %>% mutate(NLL=value-mean(value)) %>%
+ggplot(aes(x=SSB,y=NLL,color=type)) + theme_few()+ geom_point(alpha=.2) + facet_wrap(type~.,scales="free") + stat_smooth()
+
+#mcldf %>% filter(stock==1,type!="ind_len",type!="priors") %>% mutate(bin=cut(SSB, breaks=bin, labels=FALSE)) %>% group_by(type) %>% mutate(NLL=value-min(value)) %>%
+tmp <- mcldf %>% filter(stock==1,type!="ind_len",type!="priors") #%>% mutate(SSB=arules::discretize(SSB, breaks = 3, labels = c("Low","Medium","High"))
+tmp$SSB <- arules::discretize(tmp$SSB, breaks = 5, labels = c("Low","Med-low","Medium","Med-high","High"))
+tmp %>% group_by(type) %>% mutate(NLL=value-min(value)) %>% group_by(type,SSB) %>% summarise(NLL=mean(NLL)) %>%
+ggplot(aes(x=SSB,y=NLL,color=type)) + theme_few()+ geom_point(size=2) + facet_wrap(type~.,scales="free") 
+# mutate(bin=cut(SSB, breaks=bin, labels=FALSE)) 
+
+mcdf <- read.table("mceval.rep",header=TRUE)
+mcdf <- as.tibble(mcdf)
+glimpse(mcdf)
+unique(mcdf$type)
+unique(mcdf$Age)
+mcdf %>% filter(Year>1990,type=="SSB", Age=="all_stock_1") %>% mutate(Year=as.factor(Year) ) %>%
+  ggplot(aes(x=Year,y=value)) + geom_violin(color="salmon",fill="salmon") + ggthemes::theme_few() 
+
+mcdf %>% filter(Year>1990,type=="Recruits", Age=="Age_1_stock_1") %>% mutate(Year=as.factor(Year) ) %>%
+  ggplot(aes(x=Year,y=value)) + geom_violin(color="salmon",fill="salmon") + ggthemes::theme_few() 
+
+mcdf %>% filter(Year>1990,type=="Depletion", Age=="all_stock_1") %>% mutate(Year=as.factor(Year) ) %>%
+  ggplot(aes(x=value)) + geom_density(color="salmon",fill="salmon") + ggthemes::theme_few() 
+  
+
+
 
 pairs_admb(fit) # modified pairs just for ADMB fits like this
 ## Can also use ShinyStan (make sure to exit it)
-## launch_shinyadmb(fit)
 plot_sampler_params(fit.mle)                # NUTS adaptation
 ## Compare MLE and posterior of marginals. See help for
 ## recommendation for creating multipage PDF for high dimensional
