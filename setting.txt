@@ -1,5 +1,0 @@
-m00  
-parameterization 1 (#_fecundity option:(1)eggs=Wt*(a+b*Wt)) and set a = 1 and b = 0.
-
-m01
-parameterization 2 (#_fecundity option:(1)eggs=Wt*(a+b*Wt)) and set a = 1 and b = 1.

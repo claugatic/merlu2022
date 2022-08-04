@@ -1,12 +1,17 @@
-library(jjmR)
+#
 library(ggplot2)
 library(dplyr)
 library(adnuts)
+#install.packages("devtools")
+#devtools::install_github("SPRFMO/jjmR")
+library(jjmR)
 
-m1 <- runit("m1",output="results")
+#m1 <- runit("m1",output="results")
 
 m1 <- runit("m1",pdf=TRUE,portrait=F,est=TRUE,exec="./jjms")
+
 tidy_jjm <- tidy_JJM(m1)
+
 index_fits <- tidy_jjm$index_fits
 
 index_fits %>% 

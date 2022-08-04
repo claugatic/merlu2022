@@ -15,7 +15,7 @@ registerDoParallel(6)
 
 
 file.path()
-path.1<- file.path("c:/CEGM/MODEL/merluza/jjmhake/merlu2022/jjm/src")
+path.1<- file.path("c:/CEGM/MODEL/merluza/jjmhake/merlu2022/jjm/")
 path.2<- file.path("c:/CEGM/MODEL/merluza/jjmhake/merlu2022/jjm/config") # config
 path.3<- file.path("c:/CEGM/MODEL/merluza/jjmhake/merlu2022/jjm/input") # input
 path.4<- file.path("c:/CEGM/MODEL/merluza/jjmhake/merlu2022/jjm/results") #results
